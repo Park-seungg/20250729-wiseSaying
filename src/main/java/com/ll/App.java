@@ -60,6 +60,16 @@ public class App {
             WiseSaying wiseSaying = wiseSayingList.get(i);
             System.out.println("%d / %s / %s".formatted(wiseSaying.getId(), wiseSaying.getAuthor(), wiseSaying.getContent()));
         }
+
+//        IntStream.range(0, wiseSayingList.size())
+//                .map(i -> wiseSayingList.size() - 1 - i)
+//                .mapToObj(wiseSayingList::get)
+//                .forEach(wiseSaying -> System.out.println(
+//                        "%d / %s / %s".formatted(
+//                                wiseSaying.getId(), wiseSaying.getAuthor(), wiseSaying.getContent()
+//                        )
+//                ));
+
     }
 
     void actionDelete(String cmd) {
