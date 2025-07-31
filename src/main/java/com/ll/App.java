@@ -9,7 +9,7 @@ public class App {
     int lastId = 0;
     List<WiseSaying> wiseSayingList = new ArrayList<>();
 
-    void run () {
+    void run() {
         System.out.println("== 명언 앱 ==");
 
         while (true) {
@@ -19,7 +19,7 @@ public class App {
             if (cmd.equals("종료")) {
                 System.out.println("프로그램을 종료합니다.");
                 break;
-            } else  if (cmd.equals("등록")) {
+            } else if (cmd.equals("등록")) {
                 actionWrite();
             } else if (cmd.equals("목록")) {
                 actionList();
@@ -44,8 +44,8 @@ public class App {
         System.out.println("%d번 명언이 등록되었습니다.".formatted(wiseSaying.getId()));
     }
 
-    WiseSaying write (String author, String content) {
-        WiseSaying wiseSaying = new WiseSaying(++lastId, author, content );
+    WiseSaying write(String author, String content) {
+        WiseSaying wiseSaying = new WiseSaying(++lastId, author, content);
 
         wiseSayingList.add(wiseSaying);
 
@@ -56,7 +56,7 @@ public class App {
         System.out.println("번호 / 작가 / 명언");
         System.out.println("----------------------");
 
-        for (int i = wiseSayingList.size() - 1; i >=0; i--) {
+        for (int i = wiseSayingList.size() - 1; i >= 0; i--) {
             WiseSaying wiseSaying = wiseSayingList.get(i);
             System.out.println("%d / %s / %s".formatted(wiseSaying.getId(), wiseSaying.getAuthor(), wiseSaying.getContent()));
         }
@@ -91,6 +91,7 @@ public class App {
     }
 
     void delete(WiseSaying wiseSaying) {
+        // wiseSayingList.removeIf(ws -> ws.getId() == wiseSaying.getId());
         wiseSayingList.remove(wiseSaying);
     }
 
@@ -107,11 +108,11 @@ public class App {
             return;
         }
 
-        System.out.printf("명언(기존) : %s\n",  wiseSaying.getContent());
+        System.out.printf("명언(기존) : %s\n", wiseSaying.getContent());
         System.out.print("명언 : ");
         String content = scanner.nextLine().trim();
 
-        System.out.printf("작가(기존) : %s\n",  wiseSaying.getAuthor());
+        System.out.printf("작가(기존) : %s\n", wiseSaying.getAuthor());
         System.out.print("작가 : ");
         String author = scanner.nextLine().trim();
 
@@ -126,23 +127,31 @@ public class App {
     }
 
     WiseSaying findById(int id) {
-        return wiseSayingList.stream()
-                .filter(ws -> ws.getId() == id)
-                .findFirst()
-                .orElseGet(() -> {
-                    System.out.println("해당 아이디는 존재하지 않습니다.");
-                    return null;
-                });
+        return wiseSayingList.stream().filter(ws -> ws.getId() == id).findFirst().orElseGet(() -> {
+            System.out.println("해당 아이디는 존재하지 않습니다.");
+            return null;
+        });
     }
 
     int CmdSplitId(String cmd) {
         String[] cmdBits = cmd.split("=");
 
-        if (cmdBits.length < 2 ||  cmdBits[1].isEmpty()) {
+        if (cmdBits.length < 2 || cmdBits[1].isEmpty()) {
             System.out.println("id를 입력해주세요.");
             return -1;
         }
 
         return Integer.parseInt(cmdBits[1]);
+
+//        return Arrays.stream(cmd.split("="))
+//                .skip(1)
+//                .findFirst()
+//                .filter(s -> !s.isEmpty())
+//                .map(Integer::parseInt)
+//                .orElseGet(() -> {
+//                    System.out.println("id를 입력해주세요.");
+//                    return -1;
+//                });
+
     }
 }
