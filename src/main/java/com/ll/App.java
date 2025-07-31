@@ -16,20 +16,26 @@ public class App {
             System.out.print("명령) ");
             String cmd = scanner.nextLine().trim();
 
-            if (cmd.equals("종료")) {
-                System.out.println("프로그램을 종료합니다.");
-                break;
-            } else if (cmd.equals("등록")) {
-                actionWrite();
-            } else if (cmd.equals("목록")) {
-                actionList();
-            } else if (cmd.startsWith("삭제")) {
-                actionDelete(cmd);
-            } else if (cmd.startsWith("수정")) {
-                actionModify(cmd);
+            Rq rq = new Rq(cmd);
+
+            switch (rq.getActionName()) {
+                case "종료":
+                    System.out.println("프로그램을 종료합니다.");
+                    return;
+                case "등록":
+                    actionWrite();
+                    break;
+                case "목록":
+                    actionList();
+                    break;
+                case "삭제":
+                    actionDelete(rq);
+                    break;
+                case "수정":
+                    actionModify(rq);
+                    break;
             }
         }
-        scanner.close();
     }
 
     void actionWrite() {
@@ -72,10 +78,11 @@ public class App {
 
     }
 
-    void actionDelete(String cmd) {
-        int id = CmdSplitId(cmd);
+    void actionDelete(Rq rq) {
+        int id = rq.getParamAsInt("id", -1);
 
-        if (id < 0) {
+        if (id == -1) {
+            System.out.println("id를 입력해주세요.");
             return;
         }
 
@@ -95,10 +102,11 @@ public class App {
         wiseSayingList.remove(wiseSaying);
     }
 
-    void actionModify(String cmd) {
-        int id = CmdSplitId(cmd);
+    void actionModify(Rq rq) {
+        int id = rq.getParamAsInt("id", -1);
 
-        if (id < 0) {
+        if (id < -1) {
+            System.out.println("id를 입력해주세요.");
             return;
         }
 
@@ -131,27 +139,5 @@ public class App {
             System.out.println("해당 아이디는 존재하지 않습니다.");
             return null;
         });
-    }
-
-    int CmdSplitId(String cmd) {
-        String[] cmdBits = cmd.split("=");
-
-        if (cmdBits.length < 2 || cmdBits[1].isEmpty()) {
-            System.out.println("id를 입력해주세요.");
-            return -1;
-        }
-
-        return Integer.parseInt(cmdBits[1]);
-
-//        return Arrays.stream(cmd.split("="))
-//                .skip(1)
-//                .findFirst()
-//                .filter(s -> !s.isEmpty())
-//                .map(Integer::parseInt)
-//                .orElseGet(() -> {
-//                    System.out.println("id를 입력해주세요.");
-//                    return -1;
-//                });
-
     }
 }
