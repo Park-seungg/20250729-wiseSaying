@@ -1,5 +1,6 @@
 package com.ll.domain.wiseSaying;
 
+import com.ll.AppContext;
 import com.ll.Rq;
 import com.ll.WiseSaying;
 
@@ -7,13 +8,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class WiseSayingController {
-    private final Scanner scanner;
-    private final WiseSayingService wiseSayingService;
-
-    public WiseSayingController (Scanner scanner) {
-        this.scanner = scanner;
-        this.wiseSayingService = new WiseSayingService();
-    }
+    private final Scanner scanner = AppContext.scanner;
+    private final WiseSayingService wiseSayingService = AppContext.wiseSayingService;
 
     public void actionWrite() {
         System.out.print("명언: ");
@@ -28,7 +24,7 @@ public class WiseSayingController {
     }
 
     public void actionList() {
-        List<WiseSaying> wiseSayingList  = wiseSayingService.getWiseSayingList();
+        List<WiseSaying> wiseSayingList = wiseSayingService.getWiseSayingList();
 
         System.out.println("번호 / 작가 / 명언 / 작성 / 수정");
         System.out.println("----------------------");

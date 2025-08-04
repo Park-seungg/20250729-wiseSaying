@@ -9,7 +9,7 @@ public class WiseSaying {
     private String content;
     private LocalDateTime createDate;
     private LocalDateTime modifyDate;
-    private DateTimeFormatter forPrintDateTimeFormatter = DateTimeFormatter.ofPattern("yy-MM-dd HH:mm:ss");
+    private static DateTimeFormatter forPrintDateTimeFormatter = AppContext.forPrintDateTimeFormatter;
 
     public WiseSaying(String author, String content) {
         this.author = author;
