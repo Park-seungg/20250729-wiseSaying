@@ -34,7 +34,7 @@ public class WiseSayingController {
         System.out.println("----------------------");
         for (int i = wiseSayingList.size() - 1; i >= 0; i--) {
             WiseSaying wiseSaying = wiseSayingList.get(i);
-            System.out.println("%d / %s / %s /%s /%s".formatted(wiseSaying.getId(), wiseSaying.getAuthor(), wiseSaying.getContent(), wiseSaying.getCreateDate(), wiseSaying.getModifiyDate()));
+            System.out.println("%d / %s / %s /%s /%s".formatted(wiseSaying.getId(), wiseSaying.getAuthor(), wiseSaying.getContent(), wiseSaying.getForPrintCreateDate(), wiseSaying.getForPrintModifyDate()));
         }
     }
 

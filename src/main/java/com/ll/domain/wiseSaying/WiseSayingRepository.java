@@ -18,13 +18,6 @@ public class WiseSayingRepository {
         wiseSayingList.remove(wiseSaying);
     }
 
-    void modify(WiseSaying wiseSaying, String content, String author) {
-        LocalDateTime modifyTime = LocalDateTime.now();
-        wiseSaying.setContent(content);
-        wiseSaying.setAuthor(author);
-        wiseSaying.setModifiyDate(modifyTime);
-    }
-
     WiseSaying findById(int id) {
         return wiseSayingList.stream()
                 .filter(ws -> ws.getId() == id)
@@ -35,15 +28,16 @@ public class WiseSayingRepository {
                 });
     }
 
-    public WiseSaying write(String author, String content) {
-        WiseSaying wiseSaying = new WiseSaying(++lastId, author, content);
-
+    public void save(WiseSaying wiseSaying) {
         LocalDateTime now = LocalDateTime.now();
-        wiseSaying.setCreateDate(now);
-        wiseSaying.setModifiyDate(now);
-
-        wiseSayingList.add(wiseSaying);
-
-        return wiseSaying;
+        // 등록
+        if (wiseSaying.isNew()) {
+            wiseSaying.setId(++lastId);
+            wiseSaying.setCreateDate(now);
+            wiseSaying.setModifyDate(now);
+            wiseSayingList.add(wiseSaying);
+        } else { // 수정
+            wiseSaying.setModifyDate(now);
+        }
     }
 }
