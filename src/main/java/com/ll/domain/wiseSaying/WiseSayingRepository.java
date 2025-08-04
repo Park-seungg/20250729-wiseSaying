@@ -2,6 +2,7 @@ package com.ll.domain.wiseSaying;
 
 import com.ll.WiseSaying;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +35,10 @@ public class WiseSayingRepository {
 
     public WiseSaying write(String author, String content) {
         WiseSaying wiseSaying = new WiseSaying(++lastId, author, content);
+
+        LocalDateTime now = LocalDateTime.now();
+        wiseSaying.setCreateDate(now);
+        wiseSaying.setModifiyDate(now);
 
         wiseSayingList.add(wiseSaying);
 

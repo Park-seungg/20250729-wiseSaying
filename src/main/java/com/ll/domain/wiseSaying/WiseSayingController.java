@@ -30,11 +30,11 @@ public class WiseSayingController {
     public void actionList() {
         List<WiseSaying> wiseSayingList  = wiseSayingService.getWiseSayingList();
 
-        System.out.println("번호 / 작가 / 명언");
+        System.out.println("번호 / 작가 / 명언 / 생성 / 수정");
         System.out.println("----------------------");
         for (int i = wiseSayingList.size() - 1; i >= 0; i--) {
             WiseSaying wiseSaying = wiseSayingList.get(i);
-            System.out.println("%d / %s / %s".formatted(wiseSaying.getId(), wiseSaying.getAuthor(), wiseSaying.getContent()));
+            System.out.println("%d / %s / %s /%s /%s".formatted(wiseSaying.getId(), wiseSaying.getAuthor(), wiseSaying.getContent(), wiseSaying.getCreateDate(), wiseSaying.getModifiyDate()));
         }
     }
 
