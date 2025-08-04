@@ -19,8 +19,10 @@ public class WiseSayingRepository {
     }
 
     void modify(WiseSaying wiseSaying, String content, String author) {
+        LocalDateTime modifyTime = LocalDateTime.now();
         wiseSaying.setContent(content);
         wiseSaying.setAuthor(author);
+        wiseSaying.setModifiyDate(modifyTime);
     }
 
     WiseSaying findById(int id) {
